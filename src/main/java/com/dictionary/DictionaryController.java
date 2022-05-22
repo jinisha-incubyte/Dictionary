@@ -23,4 +23,8 @@ public class DictionaryController {
   public Iterable<Dictionary> getAllWords() {
     return dictionaryService.getAllWords();
   }
+
+  public Dictionary deleteWord(Dictionary word) {
+    throw new UnsupportedOperationException();
+  }
 }

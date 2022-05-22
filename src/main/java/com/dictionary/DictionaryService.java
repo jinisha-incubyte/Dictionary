@@ -18,4 +18,8 @@ public class DictionaryService {
   public Iterable<Dictionary> getAllWords() {
     return dictionaryRepository.findAll();
   }
+
+  public Dictionary deleteWord() {
+    throw new UnsupportedOperationException();
+  }
 }
