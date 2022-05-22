@@ -3,6 +3,7 @@ package com.dictionary;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +30,14 @@ class DictionaryControllerShould {
     Dictionary dictionary = dictionaryController.save(word);
 
     verify(dictionaryService).save(word);
+  }
+
+
+  @Test
+  void invoke_dictionaryService_toGetAllWords() {
+    Iterable<Dictionary> words = dictionaryController.getAllWords();
+
+    verify(dictionaryService).getAllWords();
   }
 
 }

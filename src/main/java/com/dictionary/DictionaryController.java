@@ -3,6 +3,7 @@ package com.dictionary;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
+import java.util.List;
 
 @Controller("/dictionary")
 public class DictionaryController {
@@ -16,5 +17,9 @@ public class DictionaryController {
   @Post
   public Dictionary save(@Body Dictionary word) {
     return dictionaryService.save(word);
+  }
+
+  public Iterable<Dictionary> getAllWords() {
+    return dictionaryService.getAllWords();
   }
 }

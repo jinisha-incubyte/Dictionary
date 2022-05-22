@@ -51,7 +51,7 @@ class DictionaryControllerTest {
         .retrieve(HttpRequest.GET("/dictionary/getAllWords"), Argument.listOf(Dictionary.class));
     List<String> actualWords =
         words.stream().map(Dictionary::getWord).collect(Collectors.toList());
-    List<String> expectedWords = List.of("word1","word2");
+    List<String> expectedWords = List.of("word1", "word2");
     assertThat(actualWords).containsAll(expectedWords);
   }
 
