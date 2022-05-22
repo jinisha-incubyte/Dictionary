@@ -23,10 +23,10 @@ class DictionaryServiceShould {
   }
 
   @Test
-   void invoke_DictionaryRepository_save() {
+  void invoke_DictionaryRepository_save() {
     Dictionary word = new Dictionary();
 
-    dictionaryService.save(word);
+    Dictionary dictionary = dictionaryService.save(word);
 
     verify(dictionaryRepository).save(word);
   }

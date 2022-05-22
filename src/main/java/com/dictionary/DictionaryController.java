@@ -14,7 +14,7 @@ public class DictionaryController {
   }
 
   @Post
-  public void save(@Body Dictionary word) {
-    dictionaryService.save(word);
+  public Dictionary save(@Body Dictionary word) {
+    return dictionaryService.save(word);
   }
 }

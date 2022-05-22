@@ -8,10 +8,10 @@ public class DictionaryService {
   private final DictionaryRepository dictionaryRepository;
 
   public DictionaryService(DictionaryRepository dictionaryRepository) {
-    this.dictionaryRepository=dictionaryRepository;
+    this.dictionaryRepository = dictionaryRepository;
   }
 
-  public void save(Dictionary word) {
-    dictionaryRepository.save(word);
+  public Dictionary save(Dictionary word) {
+    return dictionaryRepository.save(word);
   }
 }

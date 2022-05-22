@@ -26,7 +26,7 @@ class DictionaryControllerShould {
     Dictionary word = new Dictionary();
     word.setWord(anyString());
 
-    dictionaryController.save(word);
+    Dictionary dictionary = dictionaryController.save(word);
 
     verify(dictionaryService).save(word);
   }
