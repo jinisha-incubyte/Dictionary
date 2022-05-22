@@ -1,5 +1,10 @@
 package com.dictionary;
 
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Post;
+
+@Controller("/dictionary")
 public class DictionaryController {
 
   private final DictionaryService dictionaryService;
@@ -8,7 +13,8 @@ public class DictionaryController {
     this.dictionaryService = dictionaryService;
   }
 
-  public void save(Dictionary word) {
+  @Post
+  public void save(@Body Dictionary word) {
     dictionaryService.save(word);
   }
 }
