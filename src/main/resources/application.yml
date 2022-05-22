@@ -1,6 +1,10 @@
 micronaut:
   application:
     name: dictionary
+  codec:
+    json:
+      additionalTypes:
+        - text/javascript
 datasources:
   default:
     url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
@@ -14,3 +18,4 @@ netty:
   default:
     allocator:
       max-order: 3
+

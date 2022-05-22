@@ -3,7 +3,6 @@ package com.dictionary;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
@@ -14,8 +13,9 @@ import jakarta.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @MicronautTest
 class DictionaryControllerTest {
@@ -23,17 +23,19 @@ class DictionaryControllerTest {
   @Inject
   @Client("/")
   HttpClient httpClient;
+  Dictionary word1;
+  Dictionary word2;
 
   @BeforeEach
   void setUp() {
-    Dictionary dictionary = new Dictionary();
-    dictionary.setWord("word1");
-    dictionary = httpClient.toBlocking()
-        .retrieve(HttpRequest.POST("/dictionary", dictionary), Argument.of(Dictionary.class));
-    dictionary = new Dictionary();
-    dictionary.setWord("word2");
-    dictionary = httpClient.toBlocking()
-        .retrieve(HttpRequest.POST("/dictionary", dictionary), Argument.of(Dictionary.class));
+    word1 = new Dictionary();
+    word1.setWord("word1");
+    word1 = httpClient.toBlocking()
+        .retrieve(HttpRequest.POST("/dictionary", word1), Argument.of(Dictionary.class));
+    word2 = new Dictionary();
+    word2.setWord("word2");
+    word2 = httpClient.toBlocking()
+        .retrieve(HttpRequest.POST("/dictionary", word2), Argument.of(Dictionary.class));
   }
 
   @Test
@@ -57,12 +59,14 @@ class DictionaryControllerTest {
     assertThat(actualWords).containsExactlyInAnyOrderElementsOf(expectedWords);
   }
 
+
   @Test
   void delete_a_word_from_database() {
     Dictionary word = new Dictionary();
     word.setWord("word1");
-    word = httpClient.toBlocking()
+    Dictionary isDeleted = httpClient.toBlocking()
         .retrieve(HttpRequest.DELETE("/dictionary", word), Argument.of(Dictionary.class));
+
     List<Dictionary> words = httpClient.toBlocking()
         .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
     List<String> actualWords =
@@ -71,4 +75,14 @@ class DictionaryControllerTest {
 
   }
 
+  @AfterEach
+  void clearDB() {
+
+    List<Dictionary> words = httpClient.toBlocking()
+        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
+
+    words.forEach((word) -> httpClient.toBlocking()
+        .retrieve(HttpRequest.DELETE("/dictionary", word), Argument.of(Dictionary.class)));
+
+  }
 }

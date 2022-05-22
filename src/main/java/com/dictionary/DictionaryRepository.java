@@ -4,6 +4,6 @@ import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.CrudRepository;
 
 @Repository
-public interface DictionaryRepository extends CrudRepository<Dictionary, Long> {
+public interface DictionaryRepository extends CrudRepository<Dictionary, String> {
 
 }
