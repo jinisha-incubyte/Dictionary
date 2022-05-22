@@ -31,4 +31,8 @@ public class DictionaryController {
     dictionaryService.deleteWord(word);
     return word;
   }
+
+  public Dictionary updateWord(Dictionary actualWord, Dictionary updatedWord) {
+      return dictionaryService.updateWord(actualWord,updatedWord);
+  }
 }

@@ -50,4 +50,18 @@ class DictionaryControllerShould {
     verify(dictionaryService).deleteWord(word);
   }
 
+  @Test
+  void invoke_dictionaryService_to_update_a_word() {
+    Dictionary actualWord = new Dictionary();
+    actualWord.setWord("word1");
+
+
+    Dictionary updatedWord = new Dictionary();
+    updatedWord.setWord("word8");
+
+    Dictionary deletedWord= dictionaryController.updateWord(actualWord,updatedWord);
+
+    verify(dictionaryService).updateWord(actualWord,updatedWord);
+  }
+
 }

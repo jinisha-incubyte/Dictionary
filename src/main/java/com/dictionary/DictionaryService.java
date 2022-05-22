@@ -1,7 +1,6 @@
 package com.dictionary;
 
 import jakarta.inject.Singleton;
-import java.util.Optional;
 
 @Singleton
 public class DictionaryService {
@@ -22,5 +21,9 @@ public class DictionaryService {
 
   public void deleteWord(Dictionary word) {
       dictionaryRepository.delete(word);
+  }
+
+  public Dictionary updateWord(Dictionary actualWord, Dictionary updatedWord) {
+      throw new UnsupportedOperationException();
   }
 }
