@@ -44,7 +44,7 @@ class DictionaryServiceShould {
   @Test
   void invoke_DictionaryRepository_deleteWord() {
 
-    word = dictionaryService.deleteWord(word);
+    dictionaryService.deleteWord(word);
 
     verify(dictionaryRepository).delete(word);
   }

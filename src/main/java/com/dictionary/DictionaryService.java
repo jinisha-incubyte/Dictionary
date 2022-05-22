@@ -19,7 +19,7 @@ public class DictionaryService {
     return dictionaryRepository.findAll();
   }
 
-  public Dictionary deleteWord(Dictionary word) {
-    throw new UnsupportedOperationException();
+  public void deleteWord(Dictionary word) {
+    dictionaryRepository.delete(word);
   }
 }

@@ -24,7 +24,7 @@ public class DictionaryController {
     return dictionaryService.getAllWords();
   }
 
-  public Dictionary deleteWord(Dictionary word) {
-    return dictionaryService.deleteWord(word);
+  public void deleteWord(Dictionary word) {
+    dictionaryService.deleteWord(word);
   }
 }

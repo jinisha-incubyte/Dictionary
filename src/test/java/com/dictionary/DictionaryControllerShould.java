@@ -45,7 +45,7 @@ class DictionaryControllerShould {
     Dictionary word = new Dictionary();
     word.setWord("word1");
 
-    Dictionary deletedWord = dictionaryController.deleteWord(word);
+    dictionaryController.deleteWord(word);
 
     verify(dictionaryService).deleteWord(word);
   }
