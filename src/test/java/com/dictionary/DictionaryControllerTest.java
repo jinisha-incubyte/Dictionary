@@ -8,7 +8,6 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MicronautTest
@@ -27,6 +26,5 @@ class DictionaryControllerTest {
 
     Assertions.assertThat(dictionary.getWord()).isEqualTo("word2");
   }
-
 
 }
