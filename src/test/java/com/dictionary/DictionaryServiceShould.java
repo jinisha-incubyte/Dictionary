@@ -27,6 +27,7 @@ class DictionaryServiceShould {
     Dictionary word = new Dictionary();
 
     dictionaryService.save(word);
+
     verify(dictionaryRepository).save(word);
   }
 
