@@ -2,6 +2,8 @@ package com.dictionary;
 
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
@@ -52,7 +54,21 @@ class DictionaryControllerTest {
     List<String> actualWords =
         words.stream().map(Dictionary::getWord).collect(Collectors.toList());
     List<String> expectedWords = List.of("word1", "word2");
-    assertThat(actualWords).containsAll(expectedWords);
+    assertThat(actualWords).containsExactlyInAnyOrderElementsOf(expectedWords);
+  }
+
+  @Test
+  void delete_a_word_from_database() {
+    Dictionary word = new Dictionary();
+    word.setWord("word1");
+    word = httpClient.toBlocking()
+        .retrieve(HttpRequest.DELETE("/dictionary", word), Argument.of(Dictionary.class));
+    List<Dictionary> words = httpClient.toBlocking()
+        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
+    List<String> actualWords =
+        words.stream().map(Dictionary::getWord).collect(Collectors.toList());
+    assertFalse(actualWords.contains("word1"));
+
   }
 
 }
