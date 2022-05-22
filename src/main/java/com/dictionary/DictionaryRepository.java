@@ -9,6 +9,6 @@ import java.util.List;
 public interface DictionaryRepository extends CrudRepository<Dictionary, String> {
 
 
-  @Query("update Dictionary set word= :UpdatedWord where word=:actualWord" )
-  List<String> updateWord(String  actualWord,String UpdatedWord);
+  @Query("update Dictionary set word= :UpdatedWord where word=:actualWord")
+  List<String> updateWord(String actualWord, String UpdatedWord);
 }

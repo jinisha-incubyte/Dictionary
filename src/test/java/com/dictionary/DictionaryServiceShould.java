@@ -54,10 +54,9 @@ class DictionaryServiceShould {
     Dictionary actualWord = new Dictionary();
     actualWord.setWord("word1");
 
+    dictionaryService.updateWord(actualWord, "word8");
 
-    dictionaryService.updateWord(actualWord,"word8");
-
-    verify(dictionaryRepository).updateWord(actualWord.getWord(),"word8");
+    verify(dictionaryRepository).updateWord(actualWord.getWord(), "word8");
   }
 
 }

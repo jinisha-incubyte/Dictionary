@@ -34,10 +34,10 @@ public class DictionaryController {
   }
 
   @Put("/{updatedWord}")
-  public Dictionary updateWord(@Body Dictionary actualWord,String updatedWord) {
-       dictionaryService.updateWord(actualWord,updatedWord);
-      Dictionary dictionary=new Dictionary();
-      dictionary.setWord(updatedWord);
-      return dictionary;
+  public Dictionary updateWord(@Body Dictionary actualWord, String updatedWord) {
+    dictionaryService.updateWord(actualWord, updatedWord);
+    Dictionary dictionary = new Dictionary();
+    dictionary.setWord(updatedWord);
+    return dictionary;
   }
 }
