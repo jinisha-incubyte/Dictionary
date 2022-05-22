@@ -23,7 +23,7 @@ public class DictionaryService {
       dictionaryRepository.delete(word);
   }
 
-  public Dictionary updateWord(Dictionary actualWord, Dictionary updatedWord) {
-      throw new UnsupportedOperationException();
+  public void updateWord(Dictionary actualWord, String updatedWord) {
+      dictionaryRepository.updateWord(actualWord.getWord(),updatedWord);
   }
 }

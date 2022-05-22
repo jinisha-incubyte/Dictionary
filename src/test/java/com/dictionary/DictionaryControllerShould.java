@@ -59,9 +59,9 @@ class DictionaryControllerShould {
     Dictionary updatedWord = new Dictionary();
     updatedWord.setWord("word8");
 
-    Dictionary deletedWord= dictionaryController.updateWord(actualWord,updatedWord);
+    dictionaryController.updateWord(actualWord,"word");
 
-    verify(dictionaryService).updateWord(actualWord,updatedWord);
+    verify(dictionaryService).updateWord(actualWord,"word8");
   }
 
 }

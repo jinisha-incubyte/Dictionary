@@ -5,6 +5,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
 
 @Controller("/dictionary")
 public class DictionaryController {
@@ -32,7 +33,11 @@ public class DictionaryController {
     return word;
   }
 
-  public Dictionary updateWord(Dictionary actualWord, Dictionary updatedWord) {
-      return dictionaryService.updateWord(actualWord,updatedWord);
+  @Put("/{updatedWord}")
+  public Dictionary updateWord(@Body Dictionary actualWord,String updatedWord) {
+       dictionaryService.updateWord(actualWord,updatedWord);
+      Dictionary dictionary=new Dictionary();
+      dictionary.setWord(updatedWord);
+      return dictionary;
   }
 }

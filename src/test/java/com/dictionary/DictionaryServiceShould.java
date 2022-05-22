@@ -49,4 +49,15 @@ class DictionaryServiceShould {
     verify(dictionaryRepository).delete(word);
   }
 
+  @Test
+  void invoke_DictionaryRepository_toupdate_an_existing_word() {
+    Dictionary actualWord = new Dictionary();
+    actualWord.setWord("word1");
+
+
+    dictionaryService.updateWord(actualWord,"word8");
+
+    verify(dictionaryRepository).updateWord(actualWord.getWord(),"word8");
+  }
+
 }
