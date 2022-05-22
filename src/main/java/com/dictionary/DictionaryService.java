@@ -1,7 +1,6 @@
 package com.dictionary;
 
 import jakarta.inject.Singleton;
-import java.util.List;
 
 @Singleton
 public class DictionaryService {
@@ -16,7 +15,7 @@ public class DictionaryService {
     return dictionaryRepository.save(word);
   }
 
-  public List<Dictionary> getAllWords() {
-    throw new UnsupportedOperationException();
+  public Iterable<Dictionary> getAllWords() {
+    return dictionaryRepository.findAll();
   }
 }

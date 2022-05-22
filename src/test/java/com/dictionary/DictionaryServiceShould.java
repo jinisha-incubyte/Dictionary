@@ -15,20 +15,29 @@ class DictionaryServiceShould {
   private DictionaryService dictionaryService;
   @Mock
   DictionaryRepository dictionaryRepository;
+  Dictionary word;
 
   @BeforeEach
   void setUp() {
+    word = new Dictionary();
     dictionaryService = new DictionaryService(dictionaryRepository);
 
   }
 
   @Test
   void invoke_DictionaryRepository_save() {
-    Dictionary word = new Dictionary();
 
     Dictionary dictionary = dictionaryService.save(word);
 
     verify(dictionaryRepository).save(word);
+  }
+
+  @Test
+  void invoke_DictionaryRepository_getAllWords() {
+
+    Iterable<Dictionary> words = dictionaryService.getAllWords();
+
+    verify(dictionaryRepository).findAll();
   }
 
 }
