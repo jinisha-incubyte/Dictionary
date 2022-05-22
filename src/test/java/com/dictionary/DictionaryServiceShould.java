@@ -20,6 +20,7 @@ class DictionaryServiceShould {
   @BeforeEach
   void setUp() {
     word = new Dictionary();
+    word.setWord("word1");
     dictionaryService = new DictionaryService(dictionaryRepository);
 
   }
@@ -38,6 +39,14 @@ class DictionaryServiceShould {
     Iterable<Dictionary> words = dictionaryService.getAllWords();
 
     verify(dictionaryRepository).findAll();
+  }
+
+  @Test
+  void invoke_DictionaryRepository_deleteWord() {
+
+    word = dictionaryService.deleteWord(word);
+
+    verify(dictionaryRepository).delete(word);
   }
 
 }
