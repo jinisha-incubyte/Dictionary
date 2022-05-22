@@ -3,6 +3,7 @@ package com.dictionary;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
@@ -16,6 +17,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
 
 @MicronautTest
 class DictionaryControllerTest {
@@ -39,7 +41,7 @@ class DictionaryControllerTest {
   }
 
   @Test
-  void save_new_word() {
+  void save_new_word_to_dictionary() {
     Dictionary dictionary = new Dictionary();
     dictionary.setWord("word");
     dictionary = httpClient.toBlocking()
@@ -49,7 +51,7 @@ class DictionaryControllerTest {
   }
 
   @Test
-  void get_all_words() {
+  void get_all_words_from_dictionary() {
 
     List<Dictionary> words = httpClient.toBlocking()
         .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
@@ -61,7 +63,7 @@ class DictionaryControllerTest {
 
 
   @Test
-  void delete_a_word_from_database() {
+  void delete_a_word_from_dictionary() {
     Dictionary word = new Dictionary();
     word.setWord("word1");
     Dictionary isDeleted = httpClient.toBlocking()
@@ -73,6 +75,21 @@ class DictionaryControllerTest {
         words.stream().map(Dictionary::getWord).collect(Collectors.toList());
     assertFalse(actualWords.contains("word1"));
 
+  }
+
+  @Test
+  void update_an_existing_word_from_dictionary() {
+    Dictionary word = new Dictionary();
+    word.setWord("word1");
+    Dictionary updatedDictionary = httpClient.toBlocking()
+        .retrieve(HttpRequest.PUT("/dictionary/" + "word8", word), Argument.of(Dictionary.class));
+
+    List<Dictionary> words = httpClient.toBlocking()
+        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
+    List<String> actualWords =
+        words.stream().map(Dictionary::getWord).collect(Collectors.toList());
+    assertFalse(actualWords.contains("word1"));
+    assertTrue(actualWords.contains("word8"));
   }
 
   @AfterEach

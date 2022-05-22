@@ -4,7 +4,6 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 
 @Controller("/dictionary")
@@ -28,8 +27,8 @@ public class DictionaryController {
 
   @Delete
   //Return value is must for controller
-  public Dictionary  deleteWord(@Body Dictionary word) {
-     dictionaryService.deleteWord(word);
-     return word;
+  public Dictionary deleteWord(@Body Dictionary word) {
+    dictionaryService.deleteWord(word);
+    return word;
   }
 }
