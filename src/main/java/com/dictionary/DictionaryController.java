@@ -25,6 +25,6 @@ public class DictionaryController {
   }
 
   public Dictionary deleteWord(Dictionary word) {
-    throw new UnsupportedOperationException();
+    return dictionaryService.deleteWord(word);
   }
 }

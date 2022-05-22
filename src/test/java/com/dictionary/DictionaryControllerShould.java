@@ -47,8 +47,7 @@ class DictionaryControllerShould {
 
     Dictionary deletedWord = dictionaryController.deleteWord(word);
 
-    verify(dictionaryService).deleteWord();
+    verify(dictionaryService).deleteWord(word);
   }
-
 
 }
