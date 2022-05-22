@@ -11,8 +11,8 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut.data:micronaut-data-processor")
     annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-runtime")
@@ -24,8 +24,11 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     testImplementation("org.assertj:assertj-core")
     implementation("io.micronaut:micronaut-validation")
-
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.22.0'
     testImplementation("org.mockito:mockito-core")
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
+    implementation group: 'de.cronn', name: 'test-utils', version: '0.3.0'
+
 
 }
 
