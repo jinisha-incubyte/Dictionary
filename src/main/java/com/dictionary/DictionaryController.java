@@ -27,6 +27,7 @@ public class DictionaryController {
   }
 
   @Delete
+  //Return value is must for controller
   public Dictionary  deleteWord(@Body Dictionary word) {
      dictionaryService.deleteWord(word);
      return word;
