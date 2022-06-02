@@ -19,11 +19,11 @@ public class DictionaryService {
     return dictionaryRepository.findAll();
   }
 
-  public void deleteWord(Dictionary word) {
-      dictionaryRepository.delete(word);
+  public void deleteWord(String word) {
+    dictionaryRepository.deleteById(word);
   }
 
-  public void updateWord(Dictionary actualWord, String updatedWord) {
-      dictionaryRepository.updateWord(actualWord.getWord(),updatedWord);
+  public void updateWord(Dictionary updatedWord, String actualWord) {
+    dictionaryRepository.updateWord(updatedWord.getWord(), actualWord);
   }
 }

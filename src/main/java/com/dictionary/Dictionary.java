@@ -6,8 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Dictionary {
 
-  @Id
-  private String word;
+  @Id private String word;
 
   public void setWord(String word) {
     this.word = word;
@@ -16,6 +15,4 @@ public class Dictionary {
   public String getWord() {
     return word;
   }
-
-
 }

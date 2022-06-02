@@ -5,6 +5,13 @@ micronaut:
     json:
       additionalTypes:
         - text/javascript
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:4200
 datasources:
   default:
     url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
@@ -18,4 +25,3 @@ netty:
   default:
     allocator:
       max-order: 3
-

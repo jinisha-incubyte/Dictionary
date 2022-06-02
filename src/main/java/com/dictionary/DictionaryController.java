@@ -1,5 +1,6 @@
 package com.dictionary;
 
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
@@ -17,8 +18,9 @@ public class DictionaryController {
   }
 
   @Post
-  public Dictionary save(@Body Dictionary word) {
-    return dictionaryService.save(word);
+  public HttpResponse<Dictionary> save(@Body Dictionary word) {
+    dictionaryService.save(word);
+    return HttpResponse.created(word);
   }
 
   @Get
@@ -26,18 +28,15 @@ public class DictionaryController {
     return dictionaryService.getAllWords();
   }
 
-  @Delete
-  //Return value is must for controller
-  public Dictionary deleteWord(@Body Dictionary word) {
+  @Delete("/{word}")
+  public HttpResponse<Void> deleteWord(String word) {
     dictionaryService.deleteWord(word);
-    return word;
+    return HttpResponse.noContent();
   }
 
-  @Put("/{updatedWord}")
-  public Dictionary updateWord(@Body Dictionary actualWord, String updatedWord) {
-    dictionaryService.updateWord(actualWord, updatedWord);
-    Dictionary dictionary = new Dictionary();
-    dictionary.setWord(updatedWord);
-    return dictionary;
+  @Put("/{actualWord}")
+  public HttpResponse<Dictionary> updateWord(@Body Dictionary updatedWord, String actualWord) {
+    dictionaryService.updateWord(updatedWord, actualWord);
+    return HttpResponse.created(updatedWord);
   }
 }

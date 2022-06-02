@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: com.example
+defaultPackage: com.dictionary
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle
