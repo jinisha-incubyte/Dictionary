@@ -37,7 +37,7 @@ class DictionaryControllerShould {
 
   @Test
   void invoke_dictionaryService_to_delete_a_word() {
-    HttpResponse<Void> deletedWord = dictionaryController.deleteWord("word1");
+    HttpResponse<String> deletedWord = dictionaryController.deleteWord("word1");
     verify(dictionaryService).deleteWord("word1");
   }
 

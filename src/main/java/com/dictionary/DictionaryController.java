@@ -29,9 +29,9 @@ public class DictionaryController {
   }
 
   @Delete("/{word}")
-  public HttpResponse<Void> deleteWord(String word) {
+  public HttpResponse<String> deleteWord(String word) {
     dictionaryService.deleteWord(word);
-    return HttpResponse.noContent();
+    return HttpResponse.created("Word Deleted");
   }
 
   @Put("/{actualWord}")
