@@ -11,6 +11,7 @@ import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
@@ -24,38 +25,39 @@ class DictionaryControllerTest {
   @Inject
   @Client("/")
   HttpClient httpClient;
-  Dictionary word1;
-  Dictionary word2;
+
+ @Inject
+ DictionaryTestOnlyClient client;
+  List<Words> dictionary;
+
 
   @BeforeEach
   void setUp() {
-    word1 = new Dictionary();
-    word1.setWord("word1");
-    word1 = httpClient.toBlocking()
-        .retrieve(HttpRequest.POST("/dictionary", word1), Argument.of(Dictionary.class));
-    word2 = new Dictionary();
-    word2.setWord("word2");
-    word2 = httpClient.toBlocking()
-        .retrieve(HttpRequest.POST("/dictionary", word2), Argument.of(Dictionary.class));
+    dictionary=new ArrayList<>();
+    Words word = new Words();
+    word.setWord("word1");
+    Response<Words> wordsResponse = client.save(word);
+    dictionary.add(wordsResponse.getData());
+    word=new Words();
+    word.setWord("word2");
+    wordsResponse = client.save(word);
+    dictionary.add(wordsResponse.getData());
   }
 
   @Test
   void save_new_word_to_dictionary() {
-    Dictionary dictionary = new Dictionary();
-    dictionary.setWord("word");
-    dictionary = httpClient.toBlocking()
-        .retrieve(HttpRequest.POST("/dictionary", dictionary), Argument.of(Dictionary.class));
-
-    Assertions.assertThat(dictionary.getWord()).isEqualTo("word");
+    Words actualWord = new Words();
+    actualWord.setWord("word");
+    Response<Words> expectedWord =client.save(actualWord);
+    Assertions.assertThat(actualWord.getWord().equals(expectedWord.getData()));
   }
 
   @Test
   void get_all_words_from_dictionary() {
-
-    List<Dictionary> words = httpClient.toBlocking()
-        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
+    System.out.println(dictionary.size());
+    Response<List<Words>>  response=client.getAllWords();
     List<String> actualWords =
-        words.stream().map(Dictionary::getWord).collect(Collectors.toList());
+        response.getData().stream().map(Words::getWord).collect(Collectors.toList());
     List<String> expectedWords = List.of("word1", "word2");
     assertThat(actualWords).containsExactlyInAnyOrderElementsOf(expectedWords);
   }
@@ -63,30 +65,19 @@ class DictionaryControllerTest {
 
   @Test
   void delete_a_word_from_dictionary() {
-    Dictionary word = new Dictionary();
+    Words word = new Words();
     word.setWord("word1");
-    Dictionary isDeleted = httpClient.toBlocking()
-        .retrieve(HttpRequest.DELETE("/dictionary", word), Argument.of(Dictionary.class));
-
-    List<Dictionary> words = httpClient.toBlocking()
-        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
-    List<String> actualWords =
-        words.stream().map(Dictionary::getWord).collect(Collectors.toList());
-    assertFalse(actualWords.contains("word1"));
-
+    Response<Boolean> isWordDeleted=client.deleteWord(word);
+    assertTrue(isWordDeleted.data);
   }
 
   @Test
   void update_an_existing_word_from_dictionary() {
-    Dictionary word = new Dictionary();
-    word.setWord("word1");
-    Dictionary updatedDictionary = httpClient.toBlocking()
-        .retrieve(HttpRequest.PUT("/dictionary/" + "word8", word), Argument.of(Dictionary.class));
-
-    List<Dictionary> words = httpClient.toBlocking()
-        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
+    Response<Boolean> isWordUpdated=client.updateWord("word1","word8");
+    assertTrue(isWordUpdated.getData());
+    Response<List<Words>>  response=client.getAllWords();
     List<String> actualWords =
-        words.stream().map(Dictionary::getWord).collect(Collectors.toList());
+        response.getData().stream().map(Words::getWord).collect(Collectors.toList());
     assertFalse(actualWords.contains("word1"));
     assertTrue(actualWords.contains("word8"));
   }
@@ -94,11 +85,10 @@ class DictionaryControllerTest {
   @AfterEach
   void clearDB() {
 
-    List<Dictionary> words = httpClient.toBlocking()
-        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Dictionary.class));
+    List<Words> words = httpClient.toBlocking()
+        .retrieve(HttpRequest.GET("/dictionary"), Argument.listOf(Words.class));
 
     words.forEach((word) -> httpClient.toBlocking()
-        .retrieve(HttpRequest.DELETE("/dictionary", word), Argument.of(Dictionary.class)));
-
+        .retrieve(HttpRequest.DELETE("/dictionary", word), Argument.of(Words.class)));
   }
 }

@@ -3,6 +3,7 @@ package com.dictionary;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
+
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,43 +25,35 @@ class DictionaryControllerShould {
 
   @Test
   void invoke_dictionaryService_save() {
-    Dictionary word = new Dictionary();
+    Words word = new Words();
     word.setWord(anyString());
-
-    Dictionary dictionary = dictionaryController.save(word);
-
+    dictionaryController.save(word);
     verify(dictionaryService).save(word);
   }
 
 
   @Test
   void invoke_dictionaryService_toGetAllWords() {
-    Iterable<Dictionary> words = dictionaryController.getAllWords();
+    Response<List<Words>> words = dictionaryController.getAllWords();
 
     verify(dictionaryService).getAllWords();
   }
 
   @Test
   void invoke_dictionaryService_to_delete_a_word() {
-    Dictionary word = new Dictionary();
-    word.setWord("word1");
 
-    Dictionary deletedWord = dictionaryController.deleteWord(word);
+    Response<Boolean> deletedWord = dictionaryController.deleteWord("word1");
 
-    verify(dictionaryService).deleteWord(word);
+    verify(dictionaryService).deleteWord("word1");
   }
 
   @Test
   void invoke_dictionaryService_to_update_a_word() {
-    Dictionary actualWord = new Dictionary();
-    actualWord.setWord("word1");
 
-    Dictionary updatedWord = new Dictionary();
-    updatedWord.setWord("word8");
 
-    dictionaryController.updateWord(actualWord, "word8");
+    dictionaryController.updateWord("word1", "word8");
 
-    verify(dictionaryService).updateWord(actualWord, "word8");
+    verify(dictionaryService).updateWord("word1", "word8");
   }
 
 }

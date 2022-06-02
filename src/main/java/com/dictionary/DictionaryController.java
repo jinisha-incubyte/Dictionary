@@ -6,6 +6,7 @@ import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
+import java.util.List;
 
 @Controller("/dictionary")
 public class DictionaryController {
@@ -17,27 +18,28 @@ public class DictionaryController {
   }
 
   @Post
-  public Dictionary save(@Body Dictionary word) {
-    return dictionaryService.save(word);
+  public Response<Words> save(@Body Words word) {
+    Words savedWord = dictionaryService.save(word);
+    return Response.success("Word Saved!", savedWord);
+
   }
 
   @Get
-  public Iterable<Dictionary> getAllWords() {
-    return dictionaryService.getAllWords();
+  public Response<List<Words>> getAllWords() {
+    List<Words> words=dictionaryService.getAllWords();
+    return Response.success(words);
   }
 
   @Delete
   //Return value is must for controller
-  public Dictionary deleteWord(@Body Dictionary word) {
+  public Response<Boolean> deleteWord(@Body String word) {
     dictionaryService.deleteWord(word);
-    return word;
+    return new Response(true);
   }
 
   @Put("/{updatedWord}")
-  public Dictionary updateWord(@Body Dictionary actualWord, String updatedWord) {
+  public Response<Boolean>  updateWord(@Body String actualWord, String updatedWord) {
     dictionaryService.updateWord(actualWord, updatedWord);
-    Dictionary dictionary = new Dictionary();
-    dictionary.setWord(updatedWord);
-    return dictionary;
+    return new Response(true);
   }
 }

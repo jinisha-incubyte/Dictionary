@@ -1,6 +1,5 @@
 package com.dictionary;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +14,11 @@ class DictionaryServiceShould {
   private DictionaryService dictionaryService;
   @Mock
   DictionaryRepository dictionaryRepository;
-  Dictionary word;
+  Words word;
 
   @BeforeEach
   void setUp() {
-    word = new Dictionary();
+    word = new Words();
     word.setWord("word1");
     dictionaryService = new DictionaryService(dictionaryRepository);
 
@@ -28,7 +27,7 @@ class DictionaryServiceShould {
   @Test
   void invoke_DictionaryRepository_save() {
 
-    Dictionary dictionary = dictionaryService.save(word);
+    dictionaryService.save(word);
 
     verify(dictionaryRepository).save(word);
   }
@@ -36,7 +35,7 @@ class DictionaryServiceShould {
   @Test
   void invoke_DictionaryRepository_getAllWords() {
 
-    Iterable<Dictionary> words = dictionaryService.getAllWords();
+   dictionaryService.getAllWords();
 
     verify(dictionaryRepository).findAll();
   }
@@ -44,19 +43,15 @@ class DictionaryServiceShould {
   @Test
   void invoke_DictionaryRepository_deleteWord() {
 
-    dictionaryService.deleteWord(word);
+    dictionaryService.deleteWord("word1");
 
     verify(dictionaryRepository).delete(word);
   }
 
   @Test
   void invoke_DictionaryRepository_toupdate_an_existing_word() {
-    Dictionary actualWord = new Dictionary();
-    actualWord.setWord("word1");
-
-    dictionaryService.updateWord(actualWord, "word8");
-
-    verify(dictionaryRepository).updateWord(actualWord.getWord(), "word8");
+    dictionaryService.updateWord("word1", "word8");
+    verify(dictionaryRepository).updateWord("word1", "word8");
   }
 
 }
