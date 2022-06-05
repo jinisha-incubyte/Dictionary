@@ -6,6 +6,7 @@ micronaut:
       additionalTypes:
         - text/javascript
   server:
+    port: ${PORT:8080}
     cors:
       enabled: true
       configurations:
