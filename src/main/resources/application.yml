@@ -3,7 +3,6 @@ micronaut:
     name: dictionary
   server:
     cors:
-      port: ${PORT:8080}
       enabled: true
   codec:
     json:
