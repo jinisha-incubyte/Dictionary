@@ -35,7 +35,7 @@ dependencies {
 
 
 application {
-    mainClass.set("com.example.Application")
+    mainClass.set("com.dictionary.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
@@ -64,7 +64,7 @@ micronaut {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'com.example.Application'
+                'Main-Class': 'com.dictionary.Application'
         )
     }
 }
