@@ -1,6 +1,8 @@
 package com.dictionary;
 
+import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
@@ -30,13 +32,15 @@ public class DictionaryController {
     return Response.success(words);
   }
 
-  @Delete
+
+  @Delete("/{word}")
   //Return value is must for controller
-  public Response<Boolean> deleteWord(@Body String word) {
+  public Response<Boolean> deleteWord( String word) {
     dictionaryService.deleteWord(word);
     return new Response(true);
   }
 
+  @Consumes(MediaType.TEXT_PLAIN)
   @Put("/{updatedWord}")
   public Response<Boolean>  updateWord(@Body String actualWord, String updatedWord) {
     dictionaryService.updateWord(actualWord, updatedWord);

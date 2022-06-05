@@ -19,9 +19,9 @@ public interface DictionaryTestOnlyClient {
 
   @Delete
   //Return value is must for controller
-  public Response<Boolean> deleteWord(@Body Words word);
+   Response<Boolean> deleteWord(@Body Words word);
 
   @Put("/{updatedWord}")
-  public Response<Boolean>  updateWord(@Body String actualWord, String updatedWord);
+   Response<Boolean>  updateWord(@Body String actualWord, String updatedWord);
 
 }
