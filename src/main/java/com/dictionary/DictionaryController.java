@@ -36,14 +36,14 @@ public class DictionaryController {
   @Delete("/{word}")
   //Return value is must for controller
   public Response<Boolean> deleteWord( String word) {
-    dictionaryService.deleteWord(word);
-    return new Response(true);
+    boolean isDeleted = dictionaryService.deleteWord(word);
+    return new Response(isDeleted);
   }
 
   @Consumes(MediaType.TEXT_PLAIN)
   @Put("/{updatedWord}")
   public Response<Boolean>  updateWord(@Body String actualWord, String updatedWord) {
-    dictionaryService.updateWord(actualWord, updatedWord);
-    return new Response(true);
+    boolean isUpdated = dictionaryService.updateWord(actualWord, updatedWord);
+    return new Response(isUpdated);
   }
 }

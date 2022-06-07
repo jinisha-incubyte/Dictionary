@@ -27,9 +27,6 @@ public class Response<T> {
     return data;
   }
 
-  public void setData(T data) {
-    this.data = data;
-  }
 
   public static <T> Response<T> success(String message, T data) {
     return new Response<>(message, Status.SUCCESS, data, null);

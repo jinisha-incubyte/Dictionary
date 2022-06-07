@@ -20,13 +20,25 @@ public class DictionaryService {
     return dictionaryRepository.findAll();
   }
 
-  public void deleteWord(String word) {
-    Words wordTobeDeleted=new Words();
+  public Boolean deleteWord(String word) {
+    Words wordTobeDeleted = new Words();
     wordTobeDeleted.setWord(word);
+    List<Words> words = getAllWords();
+    if (words.contains(wordTobeDeleted)) {
       dictionaryRepository.delete(wordTobeDeleted);
+      return true;
+    }
+    return false;
   }
 
-  public void updateWord(String actualWord, String updatedWord) {
-      dictionaryRepository.updateWord(actualWord,updatedWord);
+  public Boolean updateWord(String actualWord, String updatedWord) {
+    List<Words> words = getAllWords();
+    Words newWord = new Words();
+    newWord.setWord(updatedWord);
+    if (words.contains(newWord)) {
+      return false;
+    }
+    dictionaryRepository.updateWord(actualWord, updatedWord);
+    return true;
   }
 }

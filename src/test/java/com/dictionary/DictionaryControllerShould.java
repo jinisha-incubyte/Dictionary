@@ -3,8 +3,6 @@ package com.dictionary;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
-
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +32,7 @@ class DictionaryControllerShould {
 
   @Test
   void invoke_dictionaryService_toGetAllWords() {
-    Response<List<Words>> words = dictionaryController.getAllWords();
+    dictionaryController.getAllWords();
 
     verify(dictionaryService).getAllWords();
   }
@@ -42,7 +40,7 @@ class DictionaryControllerShould {
   @Test
   void invoke_dictionaryService_to_delete_a_word() {
 
-    Response<Boolean> deletedWord = dictionaryController.deleteWord("word1");
+    dictionaryController.deleteWord("word1");
 
     verify(dictionaryService).deleteWord("word1");
   }
